@@ -1,0 +1,19 @@
+changelog:
+  exclude:
+    labels:
+      - documentation
+    authors:
+      - jenkins
+  categories:
+    - title: 🎉 Breaking Changes 
+      labels:
+        - breaking-change
+    - title: 🚀 New Features 
+      labels:
+        - enhancement
+    - title: 🛠️ Fix
+      labels: 
+        - bug
+    - title: Others
+      labels:
+        - "*"

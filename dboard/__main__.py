@@ -10,5 +10,10 @@ if __name__ == "__main__":
         from dboard.main import main
     except ImportError as e:
         sys.exit(e)
+    except KeyboardInterrupt:
+        print("\nQuitting...")
+        sys.exit()
+    finally:
+        print("dboard exit.")
 
     sys.exit(main())  # pylint: disable=no-value-for-parameter
