@@ -1,0 +1,31 @@
+layout:
+- name: ipup
+  size: 10
+  split_row:
+  - command:
+    - ip
+    - -br
+    - '-4'
+    - a
+    name: ip
+    refresh: 5
+    title: "\U0001F4DE ip addr"
+  - command:
+    - uptime
+    - -p
+    name: uptime
+    refresh: 5
+    title: "\U0001F4DE uptime"
+- command:
+  - vmstat
+  name: vmstat
+  refresh: 1
+  size: 6
+  title: "\U0001F4EA vmstat"
+- command:
+  - lsblk
+  - -e7
+  name: docker
+  refresh: 5
+  size: 5
+  title: "\U0001F40B lsblk"
