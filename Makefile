@@ -95,7 +95,7 @@ app: ## run app locally
 	python3 -m $(app) $(app_args)
 
 # requires poetry
-req: # update requirements.txt
+req: ## update requirements.txt
 	poetry update
 	poetry export -f requirements.txt --output requirements.txt --without-hashes
 

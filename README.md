@@ -12,6 +12,20 @@ Provides a way to visualize, monitor and alert stats, systems changes, services 
 * [x] Quit using `ctrl-c`
 
 
+### Development
+
+Run locally:
+
+```yml
+# make help
+Usage:
+  env            :  create venv and install dependencies locally
+  app            :  run app locally
+  req            :  update requirements.txt
+  help           :  show help message
+```
+
+
 ##### Dashboard alternatives:
 
 * [wtfutil/wtf](https://github.com/wtfutil/wtf)
