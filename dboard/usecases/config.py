@@ -4,6 +4,7 @@ manages the config template file
 """
 
 import yaml
+from pathlib import Path
 
 example = {'layout': [{'name': 'ipup', 'size': 10, 'split_row':
                        [{'command': ['ip', '-br', '-4', 'a'], 'name': 'ip',
@@ -32,9 +33,12 @@ def get_config(config_path):
             except yaml.YAMLError as exception:
                 print(exception)
     except IOError:
-        print("Error: File does not appear to exist.")
+        home = str(Path.home()) + "/.dboard/"
+        Path(home).mkdir(parents=True, exist_ok=True)
+        home += "config.yml"
 
-        with open(config_path, 'w', encoding="utf-8") as file:
+        print(f"Warning: using default config in {home}")
+        with open(home, 'w', encoding="utf-8") as file:
             yaml.dump(example, file)
 
     return example
