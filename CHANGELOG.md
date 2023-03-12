@@ -8,20 +8,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### 🚀 New Features
-
 * [x] Quit using `ctrl-c`
 
----
+### Others
+* [x] 🆙 updating dependencies
+
+--------------------------------------------------------------------------------
 
 ## ❤️ [0.1.0] - 2022-04-25
 
 - Initial release
 
 ### 🚀 New Features
-
 * [x] execute multiple commands
 * [x] configure with a YAML file
 
+--------------------------------------------------------------------------------
 
 [Unreleased]: https://github.com/marcelofpfelix/dboard/compare/v0.1.0...HEAD
 [0.1.0]: https://github.com/marcelofpfelix/dboard/releases/tag/v0.1.0
