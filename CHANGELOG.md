@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### 🚀 New Features
 * [x] Quit using `ctrl-c`
+* [x] Write the default config in `~/.dboard/config.yml`
 
 ### Others
 * [x] 🆙 updating dependencies
@@ -20,8 +21,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Initial release
 
 ### 🚀 New Features
-* [x] execute multiple commands
-* [x] configure with a YAML file
+* [x] Execute multiple commands
+* [x] Configure with a YAML file
 
 --------------------------------------------------------------------------------
 

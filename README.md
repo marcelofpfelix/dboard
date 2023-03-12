@@ -9,7 +9,6 @@ Provides a way to visualize, monitor and alert stats, systems changes, services 
 
 * [x] execute multiple commands
 * [x] configure with a YAML file
-* [x] Quit using `ctrl-c`
 
 
 ### Development

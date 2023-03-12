@@ -13,7 +13,7 @@ def main():
     main function
     """
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("-c", "--config", default="./config.yml",
+    parser.add_argument("-c", "--config", default="~/.dboard/config.yml",
                         help="Configuration file")
 
     parser.add_argument("--level", default=os.environ.get("LOG_LEVEL", "INFO"),
