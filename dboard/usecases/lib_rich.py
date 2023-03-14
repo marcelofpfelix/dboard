@@ -3,8 +3,8 @@ rich library
 defines the UI
 '''
 
-import time
-import subprocess
+import asyncio
+import sys
 from datetime import datetime
 from rich import box
 from rich.live import Live
@@ -26,11 +26,13 @@ class Header:
 
     @classmethod
     def __rich__(cls) -> Panel:
+        version="0.1.0"
+
         grid = Table.grid(expand=True)
         grid.add_column(justify="center", ratio=1)
         grid.add_column(justify="right")
         grid.add_row(
-            "[b]tdash[/b] v0.1.0",
+            f"[b]dboard[/b] v{version}",
             datetime.now().ctime().replace(":", "[blink]:[/]"),
         )
         return Panel(grid, style="white on blue")
@@ -62,16 +64,21 @@ def make_layout(config) -> Layout:
     return layout
 
 
-def command(item) -> Panel:
+async def command(layout, item) -> Panel:
     """
     run a subprocess
     """
     table = Table.grid(padding=0)
 
-    process = subprocess.run(item['command'],
-                             capture_output=True, text=True, check=True)
+    proc = await asyncio.create_subprocess_shell(
+     item['command'],
+     stdout=asyncio.subprocess.PIPE,
+    )
+
+    msg = await proc.stdout.read()
+
     table.add_row(
-        f"{process.stdout}"
+        f"{msg.decode('utf-8').strip() }"
     )
 
     message_panel = Panel(table,
@@ -80,32 +87,56 @@ def command(item) -> Panel:
                           title=item['title'],
                           border_style="bright_blue",
                           )
-    return message_panel
+    layout.update(message_panel)
 
 
-def start_dash(config):
+async def async_dash(config):
     """
     start the dashboard
     """
+    # rich refresh rate per second
+    refresh_rate = 5
+    # Live update duration: 3 hours
+    live_duration = 10800
+    task_timeout = 2
 
     layout = make_layout(config['layout'])
 
     layout["header"].update(Header())
 
-    for item in config['layout']:
-        if 'split_row' in item:
-            for item2 in item['split_row']:
-                layout[item2['name']].update(command(item2))
-        else:
-            layout[item['name']].update(command(item))
+    with Live(layout, refresh_per_second=refresh_rate, screen=True):
 
-    with Live(layout, refresh_per_second=1, screen=True):
-        for index in range(10800):
-            time.sleep(0.8)
-            if index % 3 == 0:
-                for item in config['layout']:
-                    if 'split_row' in item:
-                        for item2 in item['split_row']:
-                            layout[item2['name']].update(command(item2))
-                    else:
-                        layout[item['name']].update(command(item))
+        # 3 hours timeout
+        for index in range(refresh_rate * live_duration):
+
+            for item in config['layout']:
+                if 'split_row' in item:
+                    for item2 in item['split_row']:
+                        if index % (item2['refresh'] * refresh_rate) == 0:
+                            asyncio.create_task(command(layout[item2['name']], item2))
+                else:
+                    if index % (item['refresh'] * refresh_rate) == 0:
+                        asyncio.create_task(command(layout[item['name']], item))
+
+            await asyncio.sleep(1/refresh_rate)
+
+        # cancel async tasks
+        tasks = asyncio.all_tasks()
+        for task in tasks:
+            try:
+                print('Finishing tasks')
+                await asyncio.wait_for(task, timeout=task_timeout)
+            except TimeoutError:
+                print('The task was cancelled due to a timeout')
+            except asyncio.exceptions.CancelledError:
+                print('The tasks have ended.')
+
+    sys.exit()
+
+
+def start_dash(config) -> int:
+    """
+    start the dashboard
+    """
+
+    return asyncio.run(async_dash(config))

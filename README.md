@@ -5,9 +5,11 @@
 Allows to execute multiple commands, configured with a simple YAML file, and display the data output.
 Provides a way to visualize, monitor and alert stats, systems changes, services status.
 
+![](docs/img/example.gif)
+
 ### Features
 
-* [x] execute multiple commands
+* [x] execute multiple commands asynchronous
 * [x] configure with a YAML file
 
 

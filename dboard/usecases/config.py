@@ -3,18 +3,18 @@ config.py
 manages the config template file
 """
 
-import yaml
 from pathlib import Path
+import yaml
 
-example = {'layout': [{'name': 'ipup', 'size': 10, 'split_row':
-                       [{'command': ['ip', '-br', '-4', 'a'], 'name': 'ip',
-                         'refresh': 5, 'title': '\U0001F4DE ip addr'},
-                        {'command': ['uptime', '-p'], 'name': 'uptime',
-                         'refresh': 5, 'title': '\U0001F4DE uptime'}]},
-                      {'command': ['vmstat'], 'name': 'vmstat', 'refresh': 1,
-                       'size': 5, 'title': '\U0001F4EA vmstat'},
-                      {'command': ['lsblk', '-e7'], 'name': 'docker',
-                       'refresh': 5, 'size': 8, 'title': '\U0001F40B lsblk'}]}
+example = {'layout': [{'name': 'ipping', 'size': 10, 'split_row':
+                       [{'command': 'ip -br -4 a', 'name': 'ip',
+                         'refresh': 30, 'title': '\U0001F9A9  ip addr'},
+                        {'command': 'ping -c 1 1.1.1.1', 'name': 'ping',
+                         'refresh': 0.6, 'title': '\U0001F980  ping'}]},
+                      {'command': 'vmstat', 'name': 'vmstat', 'refresh': 1,
+                       'size': 5, 'title': '\U0001F422  vmstat'},
+                      {'command': 'uptime', 'name': 'uptime',
+                       'refresh': 2, 'size': 3, 'title': '\U0001F408  uptime'}]}
 
 
 def get_config(config_path):
