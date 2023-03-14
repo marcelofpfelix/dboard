@@ -10,7 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### 🚀 New Features
 * [x] Quit using `ctrl-c`
 * [x] Write the default config in `~/.dboard/config.yml`
-* [ ] Async execution of commands with asyncio
+* [x] Async execution of commands with asyncio
 
 ### Others
 * [x] 🆙 updating dependencies
