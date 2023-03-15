@@ -45,7 +45,11 @@ req: ## update requirements.txt
 	poetry export -f requirements.txt --output requirements.txt --without-hashes
 
 .ONESHELL:
-lint:
+bin: ## create binary file
+	docker run --rm --name pyinstaller -v "$(shell pwd):/src/" cdrx/pyinstaller-linux "pyinstaller -F dboard/main.py -n dboard"
+
+.ONESHELL:
+lint: ## lint code
 	flake8 $(app)/*
 	pylint $(app)/*
 
