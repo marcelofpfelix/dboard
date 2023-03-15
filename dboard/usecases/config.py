@@ -6,12 +6,12 @@ manages the config template file
 from pathlib import Path
 import yaml
 
-example = {'layout': [{'name': 'ipping', 'size': 10, 'split_row':
-                       [{'command': 'ip -br -4 a', 'name': 'ip',
-                         'refresh': 30, 'title': '\U0001F9A9  ip addr'},
-                        {'command': 'ping -c 1 1.1.1.1', 'name': 'ping',
+example = {'layout': [{'name': 'ss_ping', 'size': 10, 'split_row':
+                       [{'command': 'ss -s', 'name': 'ss',
+                         'refresh': 30, 'title': '\U0001F9A9  ss'},
+                        {'command': 'ping -c 1 1.1', 'name': 'ping',
                          'refresh': 0.6, 'title': '\U0001F980  ping'}]},
-                      {'command': 'vmstat', 'name': 'vmstat', 'refresh': 1,
+                      {'command': 'vmstat -S M', 'name': 'vmstat', 'refresh': 1,
                        'size': 5, 'title': '\U0001F422  vmstat'},
                       {'command': 'uptime', 'name': 'uptime',
                        'refresh': 2, 'size': 3, 'title': '\U0001F408  uptime'}]}
