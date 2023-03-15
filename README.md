@@ -3,9 +3,17 @@
 `dboard` is a terminal dashboard, using python's [textualize/rich](https://github.com/textualize/rich) library and inspired by [wtfutil/wtf](https://github.com/wtfutil/wtf).
 
 Allows to execute multiple commands, configured with a simple YAML file, and display the data output.
-Provides a way to visualize, monitor and alert stats, systems changes, services status.
+Useful a way to visualize and monitor stats, systems changes, services status.
 
-![](docs/img/example.gif)
+![dboard](docs/img/example.gif)
+
+
+### Usage
+
+* Clone this repo and run `python3 -m dboard`
+  * A binary alternative is also available in [releases](https://github.com/marcelofpfelix/dboard/releases/latest)
+* Edit the config file in `~/.config/dboard/config.yml`
+  * You can set a custom config path with `dboard -c /path/config.yml`
 
 ### Features
 
