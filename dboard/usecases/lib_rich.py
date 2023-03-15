@@ -26,7 +26,7 @@ class Header:
 
     @classmethod
     def __rich__(cls) -> Panel:
-        version="0.1.0"
+        version = "0.2.0"
 
         grid = Table.grid(expand=True)
         grid.add_column(justify="center", ratio=1)
@@ -139,4 +139,8 @@ def start_dash(config) -> int:
     start the dashboard
     """
 
-    return asyncio.run(async_dash(config))
+    try:
+        return asyncio.run(async_dash(config))
+    except KeyboardInterrupt:
+        print("\nQuitting...")
+        sys.exit()

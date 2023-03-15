@@ -25,6 +25,9 @@ def get_config(config_path):
     arg config_path: config file path
     return: a dict with the configuration
     """
+
+    config_path = config_path.replace("~", str(Path.home()))
+
     try:
         with open(config_path, encoding="utf-8") as file:
             try:
@@ -33,12 +36,11 @@ def get_config(config_path):
             except yaml.YAMLError as exception:
                 print(exception)
     except IOError:
-        home = str(Path.home()) + "/.dboard/"
-        Path(home).mkdir(parents=True, exist_ok=True)
-        home += "config.yml"
+        # create default folders
+        Path(config_path.replace("/config.yml", "")).mkdir(parents=True, exist_ok=True)
 
-        print(f"Warning: using default config in {home}")
-        with open(home, 'w', encoding="utf-8") as file:
+        print(f"Warning: using default config in {config_path}")
+        with open(config_path, 'w', encoding="utf-8") as file:
             yaml.dump(example, file)
 
     return example

@@ -23,6 +23,8 @@ Usage:
   env            :  create venv and install dependencies locally
   app            :  run app locally
   req            :  update requirements.txt
+  bin            :  create binary file
+  lint           :  lint code
   help           :  show help message
 ```
 
