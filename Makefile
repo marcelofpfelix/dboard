@@ -26,7 +26,7 @@ SHELL := bash
 
 env: venv dep ## create venv and install dependencies locally
 
-venv: 
+venv:
 	rm -rf .env
 	python3 -m venv .env
 	pip install --upgrade pip

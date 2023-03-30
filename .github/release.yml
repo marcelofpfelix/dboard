@@ -5,14 +5,14 @@ changelog:
     authors:
       - jenkins
   categories:
-    - title: 🎉 Breaking Changes 
+    - title: 🎉 Breaking Changes
       labels:
         - breaking-change
-    - title: 🚀 New Features 
+    - title: 🚀 New Features
       labels:
         - enhancement
     - title: 🛠️ Fix
-      labels: 
+      labels:
         - bug
     - title: Others
       labels:

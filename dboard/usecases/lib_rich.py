@@ -70,12 +70,31 @@ async def command(layout, item) -> Panel:
     """
     table = Table.grid(padding=0)
 
+    #try:
     proc = await asyncio.create_subprocess_shell(
-     item['command'],
-     stdout=asyncio.subprocess.PIPE,
+        item['command'],
+        stdout=asyncio.subprocess.PIPE,
+        stderr=asyncio.subprocess.PIPE
     )
-
     msg = await proc.stdout.read()
+
+    #except Exception as e:
+    #    return ''
+
+
+
+    """
+    err_message = proc.stderr.read().decode()
+    if proc.returncode != 0:
+        # the process was not successful
+        if "No such file" in err_message:
+            raise FileNotFoundError('No such file "me"')
+
+    if stderr:
+        print(f"Error occurred: {stderr}")
+    else:
+        print(f"Output: {stdout}")
+    """
 
     table.add_row(
         f"{msg.decode('utf-8').strip() }"
