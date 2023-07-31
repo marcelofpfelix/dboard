@@ -1,7 +1,7 @@
-'''
+"""
 rich library
 defines the UI
-'''
+"""
 
 import asyncio
 import sys
@@ -30,37 +30,37 @@ class Header:
         version = __version__
 
         grid = Table.grid(expand=True)
-        grid.add_column(justify='center', ratio=1)
-        grid.add_column(justify='right')
+        grid.add_column(justify="center", ratio=1)
+        grid.add_column(justify="right")
         grid.add_row(
-            f'[b]dboard[/b] v{version}',
-            datetime.now().ctime().replace(':', '[blink]:[/]'),
+            f"[b]dboard[/b] v{version}",
+            datetime.now().ctime().replace(":", "[blink]:[/]"),
         )
-        return Panel(grid, style='white on blue')
+        return Panel(grid, style="white on blue")
 
 
 def make_layout(config) -> Layout:
     """
     Define the layout.
     """
-    layout = Layout(name='root')
+    layout = Layout(name="root")
     my_objects = []
 
-    my_objects.append(Layout(name='header', size=3))
+    my_objects.append(Layout(name="header", size=3))
 
     # this should in the future set defaut values or test if key exists
     for item in config:
-        my_objects.append(Layout(name=item['name'], size=item['size']))
+        my_objects.append(Layout(name=item["name"], size=item["size"]))
 
     layout.split(*my_objects)
 
     # create split row (create frunction)
     for item in config:
-        if 'split_row' in item:
+        if "split_row" in item:
             my_objects2 = []
-            for item2 in item['split_row']:
-                my_objects2.append(Layout(name=item2['name']))
-            layout[item['name']].split_row(*my_objects2)
+            for item2 in item["split_row"]:
+                my_objects2.append(Layout(name=item2["name"]))
+            layout[item["name"]].split_row(*my_objects2)
 
     return layout
 
@@ -73,9 +73,7 @@ async def command(layout, item) -> Panel:
 
     # try:
     proc = await asyncio.create_subprocess_shell(
-        item['command'],
-        stdout=asyncio.subprocess.PIPE,
-        stderr=asyncio.subprocess.PIPE
+        item["command"], stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE
     )
     msg = await proc.stdout.read()
 
@@ -95,16 +93,15 @@ async def command(layout, item) -> Panel:
         print(f"Output: {stdout}")
     """
 
-    table.add_row(
-        f"{msg.decode('utf-8').strip() }"
-    )
+    table.add_row(f"{msg.decode('utf-8').strip() }")
 
-    message_panel = Panel(table,
-                          box=box.ROUNDED,
-                          padding=(0, 0),
-                          title=item['title'],
-                          border_style='bright_blue',
-                          )
+    message_panel = Panel(
+        table,
+        box=box.ROUNDED,
+        padding=(0, 0),
+        title=item["title"],
+        border_style="bright_blue",
+    )
     layout.update(message_panel)
 
 
@@ -118,25 +115,23 @@ async def async_dash(config):
     live_duration = 10
     task_timeout = 2
 
-    layout = make_layout(config['layout'])
+    layout = make_layout(config["layout"])
 
-    layout['header'].update(Header())
+    layout["header"].update(Header())
 
     with Live(layout, refresh_per_second=refresh_rate, screen=True):
-
         # 3 hours timeout
         for index in range(refresh_rate * live_duration):
-
-            for item in config['layout']:
-                if 'split_row' in item:
-                    for item2 in item['split_row']:
-                        if index % (item2['refresh'] * refresh_rate) == 0:
-                            asyncio.create_task(command(layout[item2['name']], item2))
+            for item in config["layout"]:
+                if "split_row" in item:
+                    for item2 in item["split_row"]:
+                        if index % (item2["refresh"] * refresh_rate) == 0:
+                            asyncio.create_task(command(layout[item2["name"]], item2))
                 else:
-                    if index % (item['refresh'] * refresh_rate) == 0:
-                        asyncio.create_task(command(layout[item['name']], item))
+                    if index % (item["refresh"] * refresh_rate) == 0:
+                        asyncio.create_task(command(layout[item["name"]], item))
 
-            await asyncio.sleep(1/refresh_rate)
+            await asyncio.sleep(1 / refresh_rate)
 
         # cancel async tasks
         tasks = asyncio.all_tasks()
@@ -145,12 +140,12 @@ async def async_dash(config):
         # await asyncio.gather(*tasks, return_exceptions=True)
         for task in tasks:
             try:
-                print('Finishing tasks')
+                print("Finishing tasks")
                 await asyncio.wait_for(task, timeout=task_timeout)
             except TimeoutError:
-                print('The task was cancelled due to a timeout')
+                print("The task was cancelled due to a timeout")
             except asyncio.CancelledError:
-                print('The tasks have ended.')
+                print("The tasks have ended.")
 
     sys.exit()
 
@@ -163,5 +158,5 @@ def start_dash(config) -> int:
     try:
         return asyncio.run(async_dash(config))
     except KeyboardInterrupt:
-        print('\nQuitting...')
+        print("\nQuitting...")
         sys.exit()

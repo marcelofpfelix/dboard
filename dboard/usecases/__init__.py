@@ -10,4 +10,4 @@ from dboard.usecases.config import (
     get_config,
 )
 
-__all__ = ('start_dash', 'get_config')
+__all__ = ("start_dash", "get_config")

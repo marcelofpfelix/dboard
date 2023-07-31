@@ -36,6 +36,12 @@ Usage:
   help           :  show help message
 ```
 
+```sh
+# add dependecies
+poetry add python rich PyYAML
+poetry add --dev pytest coverage pytest-cov ruff black mypy pre-commit
+```
+
 
 ##### Dashboard alternatives:
 
