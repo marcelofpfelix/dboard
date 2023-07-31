@@ -12,6 +12,7 @@ from rich.table import Table
 from rich.console import Console
 from rich.layout import Layout
 from rich.panel import Panel
+from dboard import __version__
 
 console = Console()
 
@@ -26,26 +27,26 @@ class Header:
 
     @classmethod
     def __rich__(cls) -> Panel:
-        version = "0.2.0"
+        version = __version__
 
         grid = Table.grid(expand=True)
-        grid.add_column(justify="center", ratio=1)
-        grid.add_column(justify="right")
+        grid.add_column(justify='center', ratio=1)
+        grid.add_column(justify='right')
         grid.add_row(
-            f"[b]dboard[/b] v{version}",
-            datetime.now().ctime().replace(":", "[blink]:[/]"),
+            f'[b]dboard[/b] v{version}',
+            datetime.now().ctime().replace(':', '[blink]:[/]'),
         )
-        return Panel(grid, style="white on blue")
+        return Panel(grid, style='white on blue')
 
 
 def make_layout(config) -> Layout:
     """
     Define the layout.
     """
-    layout = Layout(name="root")
+    layout = Layout(name='root')
     my_objects = []
 
-    my_objects.append(Layout(name="header", size=3))
+    my_objects.append(Layout(name='header', size=3))
 
     # this should in the future set defaut values or test if key exists
     for item in config:
@@ -70,12 +71,29 @@ async def command(layout, item) -> Panel:
     """
     table = Table.grid(padding=0)
 
+    # try:
     proc = await asyncio.create_subprocess_shell(
-     item['command'],
-     stdout=asyncio.subprocess.PIPE,
+        item['command'],
+        stdout=asyncio.subprocess.PIPE,
+        stderr=asyncio.subprocess.PIPE
     )
-
     msg = await proc.stdout.read()
+
+    # except Exception as e:
+    #    return ''
+
+    """
+    err_message = proc.stderr.read().decode()
+    if proc.returncode != 0:
+        # the process was not successful
+        if "No such file" in err_message:
+            raise FileNotFoundError('No such file "me"')
+
+    if stderr:
+        print(f"Error occurred: {stderr}")
+    else:
+        print(f"Output: {stdout}")
+    """
 
     table.add_row(
         f"{msg.decode('utf-8').strip() }"
@@ -85,7 +103,7 @@ async def command(layout, item) -> Panel:
                           box=box.ROUNDED,
                           padding=(0, 0),
                           title=item['title'],
-                          border_style="bright_blue",
+                          border_style='bright_blue',
                           )
     layout.update(message_panel)
 
@@ -97,12 +115,12 @@ async def async_dash(config):
     # rich refresh rate per second
     refresh_rate = 5
     # Live update duration: 3 hours
-    live_duration = 10800
+    live_duration = 10
     task_timeout = 2
 
     layout = make_layout(config['layout'])
 
-    layout["header"].update(Header())
+    layout['header'].update(Header())
 
     with Live(layout, refresh_per_second=refresh_rate, screen=True):
 
@@ -122,13 +140,16 @@ async def async_dash(config):
 
         # cancel async tasks
         tasks = asyncio.all_tasks()
+
+        # Shield the cleanup process from cancellation
+        # await asyncio.gather(*tasks, return_exceptions=True)
         for task in tasks:
             try:
                 print('Finishing tasks')
                 await asyncio.wait_for(task, timeout=task_timeout)
             except TimeoutError:
                 print('The task was cancelled due to a timeout')
-            except asyncio.exceptions.CancelledError:
+            except asyncio.CancelledError:
                 print('The tasks have ended.')
 
     sys.exit()
@@ -142,5 +163,5 @@ def start_dash(config) -> int:
     try:
         return asyncio.run(async_dash(config))
     except KeyboardInterrupt:
-        print("\nQuitting...")
+        print('\nQuitting...')
         sys.exit()

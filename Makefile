@@ -26,23 +26,32 @@ SHELL := bash
 
 env: venv dep ## create venv and install dependencies locally
 
-venv: 
+venv:
 	rm -rf .env
 	python3 -m venv .env
-	pip install --upgrade pip
+	python3 -m pip install --upgrade pip
 
 dep:
 	source .env/bin/activate
-	pip install --upgrade pip-tools
-	pip install --requirement requirements.txt
+	python3 -m pip install --upgrade pip-tools
+	python3 -m pip install --requirement requirements-dev.txt
 
 app: ## run app locally
 	python3 -m $(app) $(app_args)
+
+pre: ## run pre-commit
+	pre-commit run --all-files
 
 # requires poetry
 req: ## update requirements.txt
 	poetry update
 	poetry export -f requirements.txt --output requirements.txt --without-hashes
+	poetry export --dev -f requirements.txt --output requirements-dev.txt --without-hashes
+
+test: ## run pytest
+	coverage run -m pytest tests
+	coverage combine
+	coverage report --show-missing
 
 .ONESHELL:
 bin: ## create binary file

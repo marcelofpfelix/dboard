@@ -26,10 +26,10 @@ def get_config(config_path):
     return: a dict with the configuration
     """
 
-    config_path = config_path.replace("~", str(Path.home()))
+    config_path = config_path.replace('~', str(Path.home()))
 
     try:
-        with open(config_path, encoding="utf-8") as file:
+        with open(config_path, encoding='utf-8') as file:
             try:
                 config = yaml.safe_load(file)
                 return config
@@ -37,10 +37,10 @@ def get_config(config_path):
                 print(exception)
     except IOError:
         # create default folders
-        Path(config_path.replace("/config.yml", "")).mkdir(parents=True, exist_ok=True)
+        Path(config_path.replace('/config.yml', '')).mkdir(parents=True, exist_ok=True)
 
-        print(f"Warning: using default config in {config_path}")
-        with open(config_path, 'w', encoding="utf-8") as file:
+        print(f'Warning: using default config in {config_path}')
+        with open(config_path, 'w', encoding='utf-8') as file:
             yaml.dump(example, file)
 
     return example
