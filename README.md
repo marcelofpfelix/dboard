@@ -3,7 +3,7 @@
 `dboard` is a terminal dashboard, using python's [textualize/rich](https://github.com/textualize/rich) library and inspired by [wtfutil/wtf](https://github.com/wtfutil/wtf).
 
 Allows to execute multiple commands, configured with a simple YAML file, and display the data output.
-Useful a way to visualize and monitor stats, systems changes, services status.
+Useful a way to visualize and monitor stats, systems changes, and service status.
 
 ![dboard](docs/img/example.gif)
 
@@ -17,7 +17,7 @@ Useful a way to visualize and monitor stats, systems changes, services status.
 
 ### Features
 
-* [x] execute multiple commands asynchronous
+* [x] execute multiple commands asynchronously
 * [x] configure with a YAML file
 
 
@@ -34,6 +34,12 @@ Usage:
   bin            :  create binary file
   lint           :  lint code
   help           :  show help message
+```
+
+```sh
+# add dependecies
+poetry add python rich PyYAML pydantic
+poetry add --dev pytest coverage pytest-cov ruff black mypy types-PyYAML pre-commit
 ```
 
 
