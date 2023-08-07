@@ -5,10 +5,11 @@ A terminal dashboard
 """
 import argparse
 import os
+
 from dboard import usecases
 
 
-def main():
+def main() -> None:
     """
     main function
     """

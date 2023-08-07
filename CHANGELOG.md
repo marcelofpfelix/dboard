@@ -9,7 +9,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### 🚀 New Features
-* [x] Add testing with pytest and coverage
+* [x] Add testing with `pytest, coverage`
+* [x] add `black, ruff, mypy` to format and lint the code with `pre-commit`
+* [x] Add data validation with `pydantic`
 
 
 --------------------------------------------------------------------------------

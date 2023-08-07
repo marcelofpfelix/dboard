@@ -2,18 +2,19 @@
 This module is called when the package is executed as a module.
 """
 
-import sys
-
+import importlib
+from sys import exit
 
 if __name__ == "__main__":
     try:
-        from dboard.main import main
+        importlib.import_module("dboard.main")
+        # from dboard.main import main
     except ImportError as e:
-        sys.exit(e)
+        exit(str(e))
     except KeyboardInterrupt:
         print("\nQuitting...")
-        sys.exit()
+        exit()
     finally:
         print("dboard exit.")
 
-    sys.exit(main())  # pylint: disable=no-value-for-parameter
+    exit()

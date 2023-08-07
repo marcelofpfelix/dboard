@@ -6,12 +6,14 @@ repos:
     hooks:
     -   id: trailing-whitespace
     -   id: end-of-file-fixer
-    -   id: check-yaml
-    -   id: requirements-txt-fixer
     -   id: no-commit-to-branch
+    -   id: check-yaml
+    -   id: check-toml
+    -   id: requirements-txt-fixer
+    -   id: check-docstring-first
 - repo: https://github.com/astral-sh/ruff-pre-commit
   # Ruff version.
-  rev: v0.0.280
+  rev: v0.0.280 # version must match requirements.txt
   hooks:
     - id: ruff
       args: [--fix, --exit-non-zero-on-fix]
@@ -24,6 +26,14 @@ repos:
         pass_filenames: false
         always_run: true
 -   repo: https://github.com/psf/black
-    rev: 23.7.0
+    rev: 23.7.0 # version must match requirements.txt
     hooks:
     - id: black
+-   repo: https://github.com/pre-commit/mirrors-mypy
+    rev: 'v1.4.1'  # version must match requirements.txt
+    hooks:
+    -   id: mypy
+        args: [--strict, --ignore-missing-imports]
+        additional_dependencies:
+          - pydantic
+          - types-PyYAML

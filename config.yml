@@ -1,27 +1,25 @@
+title: My Dashboard
+header_style: white on blue
+live_duration: 10
 layout:
-- name: ss_ping
-  size: 10
-  split_row:
+- size: 10
+  subprocess:
   - command: ss -s
-    name: ss
-    refresh: 1
+    refresh: 2
     title: "\U0001F9A9  ss"
   - command: ping -c 1 1.1
-    name: ping
-    refresh: 0.6
+    refresh: 0.2
     title: "\U0001F980  ping"
-- command: vmstat -S M
-  name: vmstat
-  refresh: 1
-  size: 5
-  title: "\U0001F422  vmstat"
-- command: uptime
-  name: uptime
-  refresh: 1
-  size: 3
-  title: "\U0001F408  uptime"
-- command: notfound
-  name: notfound
-  refresh: 1
-  size: 3
-  title: "\U0001F408  notfound"
+    border_style: bright_blue
+- size: 5
+  subprocess:
+  - command: vmstat -S M
+    title: "\U0001F422  vmstat"
+- size: 3
+  subprocess:
+  - command: uptime
+    title: "\U0001F408  uptime"
+- size: 3
+  subprocess:
+  - command: notfound
+    title: "\U0001F408  notfound"
