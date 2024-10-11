@@ -3,6 +3,7 @@ dboard
 
 A terminal dashboard
 """
+
 import argparse
 import os
 
