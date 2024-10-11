@@ -16,8 +16,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ##### 🚀 New Features
 * [x] Add data validation with `pydantic` in #6
 * [x] Add testing with `pytest, coverage` in #7
-* [x] add `black, ruff, mypy` to format and lint the code with `pre-commit` in #8
+* [x] Add `black, ruff, mypy` to format and lint the code with `pre-commit` in #8
 * [x] Migrate from poetry to uv in #9
+* [x] Add dependabot in #11
 
 
 --------------------------------------------------------------------------------
