@@ -38,8 +38,8 @@ Usage:
 
 ```sh
 # add dependecies
-poetry add python rich PyYAML pydantic
-poetry add --dev pytest coverage pytest-cov ruff black mypy types-PyYAML pre-commit
+uv add rich PyYAML pydantic
+uv add --dev pytest coverage pytest-cov pytest-xdist ruff mypy types-PyYAML
 ```
 
 

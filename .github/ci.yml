@@ -1,0 +1,30 @@
+name: ci
+
+on:
+  pull_request:
+  push:
+    branches: [main, master]
+
+jobs:
+  eol:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: marcopaganini/check-trailing-spaces@v1
+    - uses: fernandrone/linelint@0.0.6
+
+  py:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v3
+        with:
+            enable-cache: true
+      - name: Set up Python
+        run: uv python install
+      - name: install dependencies
+        run: uv sync --all-extras --dev
+      - name: lint
+        run: ci/quality.sh
+      - name: test
+        run: ci/test.sh

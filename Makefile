@@ -37,16 +37,20 @@ dep:
 	source .env/bin/activate"
 
 app: ## run app locally
-	python3 -m $(name) $(app_args)
+	uv run python3 -m $(name) $(app_args)
 
 pre: ## run pre-commit
 	pre-commit run --all-files
 
-# requires poetry
+check: ## run check scripts
+	ci/quality.sh
+	ci/test.sh
+
+# requires uv
 req: ## update requirements.txt
-	poetry update
-	poetry export -f requirements.txt --output requirements.txt --without-hashes
-	poetry export --dev -f requirements.txt --output requirements-dev.txt --without-hashes
+	uv sync
+	uv export -f requirements.txt --output requirements.txt --without-hashes
+	uv export --dev -f requirements.txt --output requirements-dev.txt --without-hashes
 
 test: ## run pytest
 	coverage run -m pytest tests

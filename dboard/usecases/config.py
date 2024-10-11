@@ -3,7 +3,6 @@ config.py
 manages the config template file
 """
 
-
 from pathlib import Path
 from sys import exit
 from typing import Any, List
@@ -69,7 +68,7 @@ class Subprocess(BaseModel):
     id: str | None = Field(default_factory=lambda: uuid4().hex)
     command: str
     refresh: float = Field(ge=0.2, multiple_of=0.1, default=1)
-    title: str = Field(max_length=20)
+    title: str = Field(max_length=60)
     border_style: str = Field(default="bright_blue")
     # extra validation todo:
     # refresh should be a multiple of rate
@@ -83,7 +82,7 @@ class Layout(BaseModel):
 
 class Settings(BaseModel):
     rate: float = Field(ge=0.1, multiple_of=0.1, default=0.1)
-    title: str = Field(default="", max_length=20)
+    title: str = Field(default="", max_length=60)
     live_duration: int = Field(gt=0, default=10800)
     task_timeout: int = Field(gt=0, default=2)
     header_style: str = Field(default="white on blue")

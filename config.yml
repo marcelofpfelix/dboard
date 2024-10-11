@@ -1,6 +1,6 @@
 title: My Dashboard
 header_style: white on blue
-live_duration: 10
+live_duration: 1000
 layout:
 - size: 10
   subprocess:
