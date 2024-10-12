@@ -14,7 +14,7 @@ Useful a way to visualize and monitor stats, systems changes, and service status
 # > # virtual environment
 python3 -m venv .venv
 source .venv/bin/activate
-# or simply use uv 
+# or simply use uv
 # uvx dboard
 # > # install
 pip install dboard
