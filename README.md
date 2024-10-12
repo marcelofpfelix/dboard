@@ -10,10 +10,19 @@ Useful a way to visualize and monitor stats, systems changes, and service status
 
 ### Usage
 
-* Clone this repo and run `python3 -m dboard`
-  * A binary alternative is also available in [releases](https://github.com/marcelofpfelix/dboard/releases/latest)
+```sh
+# > # virtual environment
+python3 -m venv .venv
+source .venv/bin/activate
+# or simply use uv
+# uvx dboard
+# > # install
+pip install dboard
+dboard --help
+```
+
 * Edit the config file in `~/.config/dboard/config.yml`
-  * You can set a custom config path with `dboard -c /path/config.yml`
+* You can set a custom config path with `dboard -c /path/config.yml`
 
 ### Features
 
@@ -24,6 +33,8 @@ Useful a way to visualize and monitor stats, systems changes, and service status
 ### Development
 
 Run locally:
+
+* Use source: clone this repo and run `python3 -m dboard` or `make app`
 
 ```yml
 # make help

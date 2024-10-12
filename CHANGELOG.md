@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 ## [Unreleased]
+* [x] Add support for python 3.8 in #14
+* [x] ⬆ Bump actions/setup-python from 3 to 5 in #12
 
 
 --------------------------------------------------------------------------------
