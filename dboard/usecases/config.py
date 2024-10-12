@@ -3,17 +3,19 @@ config.py
 manages the config template file
 """
 
+from __future__ import annotations
 from pathlib import Path
 from sys import exit
-from typing import Any, List
+from typing import Optional, List, Any
 from uuid import uuid4
 
 import yaml
 from pydantic import BaseModel, Field, ValidationError
 
+
 example = {
     "title": "My Dashboard",
-    "header_style": "white on blue",
+    "header_style": "black on blue",
     "live_duration": 10800,
     "layout": [
         {
@@ -65,7 +67,7 @@ def read_yaml(config_path: str) -> Any:
 
 
 class Subprocess(BaseModel):
-    id: str | None = Field(default_factory=lambda: uuid4().hex)
+    id: Optional[str] = Field(default_factory=lambda: uuid4().hex)
     command: str
     refresh: float = Field(ge=0.2, multiple_of=0.1, default=1)
     title: str = Field(max_length=60)
@@ -75,7 +77,7 @@ class Subprocess(BaseModel):
 
 
 class Layout(BaseModel):
-    id: str | None = Field(default_factory=lambda: uuid4().hex)
+    id: Optional[str] = Field(default_factory=lambda: uuid4().hex)
     size: int = Field(gt=0)
     subprocess: List[Subprocess]
 

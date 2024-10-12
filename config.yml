@@ -1,5 +1,5 @@
 title: My Dashboard
-header_style: white on blue
+header_style: black on blue
 live_duration: 1000
 layout:
 - size: 10
