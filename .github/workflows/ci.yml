@@ -9,14 +9,14 @@ jobs:
   eol:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v5
+    - uses: actions/checkout@v6
     - uses: marcopaganini/check-trailing-spaces@v1
     - uses: fernandrone/linelint@0.0.6
 
   py:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - uses: astral-sh/setup-uv@v7
         with:
             enable-cache: true
